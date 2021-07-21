@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { over } from 'stompjs';
-import * as SockJs from 'sockjs-client';
+import { RxStompService } from '@stomp/ng2-stompjs';
+import { Message } from 'stompjs';
 
 @Component({
   selector: 'app-root',
@@ -10,22 +10,18 @@ import * as SockJs from 'sockjs-client';
 export class AppComponent {
   title = 'stompjs-test';
 
+  receivedMessages: string[] = [];
+
+  constructor(private rxStompService: RxStompService) { }
+
   ngOnInit() {
-    const sockJs = new SockJs("http://localhost:8080/ws");
-    const stompClient = over(sockJs);
-    
-    const onConnected = () => {
-      console.log("connected");
-      stompClient.subscribe(
-        "/user/" + 1 + "/queue/messages",
-        message => console.log(message),
-      );
-    };
-  
-    const onError = (err: any) => {
-      console.log(err);
-    };
-    
-    stompClient.connect({}, onConnected, onError);
+    this.rxStompService.watch('/topic/demo').subscribe((message: Message) => {
+      this.receivedMessages.push(message.body);
+    });
+  }
+
+  onSendMessage() {
+    const message = `Message generated at ${new Date}`;
+    this.rxStompService.publish({destination: '/topic/demo', body: message});
   }
 }
