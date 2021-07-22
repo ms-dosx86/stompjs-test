@@ -12,10 +12,17 @@ export class AppComponent {
   title = 'stompjs-test';
 
   receivedMessages: string[] = [];
+  token = '';
 
   constructor(private rxStompService: RxStompService) { }
 
   connect() {
+    if (!this.token) {
+      alert('No token');
+      return;
+    }
+    const headers = { Authorization: this.token };
+    myRxStompConfig.connectHeaders = headers;
     this.rxStompService.configure(myRxStompConfig);
     this.rxStompService.activate();
   }

@@ -1,5 +1,13 @@
+<label>
+  <span>Token &nbsp;</span>
+  <input type="text" placeholder="Token" [(ngModel)]="token">
+</label>
+<br>
 <button (click)="connect()">Connect</button>
+<br>
 <button (click)="subscribeToTopic()">Subscribe to topic</button>
+
+<br>
 
 <div id="messages">
   <button class="btn btn-primary" (click)="onSendMessage()">Send Test Message</button>
