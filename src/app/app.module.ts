@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { InjectableRxStompConfig, RxStompService, rxStompServiceFactory } from '@stomp/ng2-stompjs';
+import { RxStompService } from '@stomp/ng2-stompjs';
 
 import { AppComponent } from './app.component';
-import { myRxStompConfig } from './my-rx-stomp.config';
 
 @NgModule({
   declarations: [
@@ -13,15 +12,7 @@ import { myRxStompConfig } from './my-rx-stomp.config';
     BrowserModule
   ],
   providers: [
-    {
-      provide: InjectableRxStompConfig,
-      useValue: myRxStompConfig,
-    },
-    {
-      provide: RxStompService,
-      useFactory: rxStompServiceFactory,
-      deps: [InjectableRxStompConfig],
-    },
+    RxStompService,
   ],
   bootstrap: [AppComponent]
 })

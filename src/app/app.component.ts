@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RxStompService } from '@stomp/ng2-stompjs';
 import { Message } from 'stompjs';
+import { myRxStompConfig } from './my-rx-stomp.config';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,12 @@ export class AppComponent {
 
   constructor(private rxStompService: RxStompService) { }
 
-  ngOnInit() {
+  connect() {
+    this.rxStompService.configure(myRxStompConfig);
+    this.rxStompService.activate();
+  }
+
+  subscribeToTopic() {
     this.rxStompService.watch('/topic/demo').subscribe((message: Message) => {
       this.receivedMessages.push(message.body);
     });
