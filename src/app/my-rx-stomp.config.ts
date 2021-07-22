@@ -1,4 +1,5 @@
 import { InjectableRxStompConfig } from '@stomp/ng2-stompjs';
+import { v4 } from 'uuid';
 
 export const myRxStompConfig: InjectableRxStompConfig = {
   // Which server?
@@ -9,6 +10,7 @@ export const myRxStompConfig: InjectableRxStompConfig = {
   connectHeaders: {
     login: 'guest',
     passcode: 'guest',
+    Authorization: v4(),
   },
 
   // How often to heartbeat?
