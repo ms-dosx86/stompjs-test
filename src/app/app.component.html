@@ -5,15 +5,22 @@
 <br>
 <button (click)="connect()">Connect</button>
 <br>
-<button (click)="subscribeToTopic()">Subscribe to topic</button>
+<button (click)="subscribeToTopic()">notifications.userId.0</button>
+<button (click)="subscribeToTopic2()">message.userId.0</button>
+<button (click)="subscribeToTopic3()">message.partnerId.1</button>
+<button (click)="subscribeToTopic4()">newChat.userId.0</button>
+<button (click)="subscribeToTopic5()">status.userId.0</button>
+<button (click)="subscribeToTopic6()">deleteChat.userId.0</button>
+<input type="file" (change)="onUpload($any($event.target).files)" />
 
 <br>
 
 <div id="messages">
   <button class="btn btn-primary" (click)="onSendMessage()">Send Test Message</button>
+  <button class="btn btn-primary" (click)="onSendMessage2()">unread</button>
   <h2>Received messages</h2>
   <ol>
     <!-- we will use Angular binding to populate list of messages -->
-    <li class="message" *ngFor="let message of receivedMessages"></li>
+    <li class="message" *ngFor="let message of receivedMessages">{{message | json}}</li>
   </ol>
 </div>
